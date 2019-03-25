@@ -1,20 +1,24 @@
 #include <stdio.h>
 
 typedef union {
-  short count;
-  float weight;
-  float volume;
-} quantity;
+    int male;
+    int female;
+} gender;
+
+typedef struct {
+    int age;
+    char* name;
+    gender sex;
+} person;
+
+
+void sayName(person* p)
+{
+    printf("My name is %s and I am %d", p->name, p->sex);
+}
 
 int main()
 {
-  // Three ways to declare a union.
-  quantity q = {3};
-
-  quantity q2 = {.volume = 3.5};
-
-  quantity q3;
-  q3.weight = 5.6;
-
-  // The size of a union is the same as the size of its largest field.
+    person me = { 28, "Adam", { .female=1 } };
+    sayName(&me);
 }
