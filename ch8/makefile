@@ -7,5 +7,8 @@ checksum.o: checksum.c checksum.h
 message_hider.o: message_hider.c checksum.h encrypt.h
 	gcc -c message_hider.c
 
-launch: encrypt.o checksum.o message_hider.o
-	gcc encrypt.o checksum.o message_hider.o -o message_hider
+libhfsecurity.a: checksum.o encrypt.o
+	ar -rcs libhfsecurity.a checksum.o encrypt.o
+
+launch: libhfsecurity.a message_hider.o
+	gcc message_hider.o -I. -L. -lhfsecurity -o message_hider
