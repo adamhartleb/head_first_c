@@ -1,10 +1,10 @@
-encrypt.o: encrypt.c encrypt.h
+encrypt.o: encrypt.c encrypt.h message.h
 	gcc -c encrypt.c
 
 checksum.o: checksum.c checksum.h
 	gcc -c checksum.c
 
-message_hider.o: message_hider.c checksum.h encrypt.h
+message_hider.o: message_hider.c checksum.h encrypt.h message.h
 	gcc -c message_hider.c
 
 libhfsecurity.a: checksum.o encrypt.o

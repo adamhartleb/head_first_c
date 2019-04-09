@@ -5,13 +5,34 @@
 
 int main (int argc, char* argv[])
 {
-  int size = sizeof(argv[1]);
-  char copy[size];
-  strcpy(copy, argv[1]);
+  struct message messages[argc - 1];
 
-  encrypt(argv[1]);
+  int totalSize = 0;
 
-  printf("Original message: %s\n", copy);
-  printf("Encrypted message: %s\n", argv[1]);
-  printf("Original checksum is: %d\n", checksum(copy));
+  for (int i = 1; i < argc; i++) {
+    totalSize += strlen(argv[i]);
+    messages[i - 1].original = argv[i];
+    encrypt(&messages[i - 1]);
+  }
+
+  totalSize += argc - 1;
+  char originalMessage[totalSize];
+  char encryptedMessage[totalSize];
+
+  strcpy(originalMessage, messages[0].original);
+  strcat(originalMessage, " ");
+
+  strcpy(encryptedMessage, messages[0].encrypted);
+  strcat(encryptedMessage, " ");
+
+  for (int i = 1; i < argc - 1; i++) {
+    strcat(originalMessage, messages[i].original);
+    strcat(originalMessage, " ");
+
+    strcat(encryptedMessage, messages[i].encrypted);
+    strcat(encryptedMessage, " ");
+  }
+
+  printf("Original message: %s\n", originalMessage);
+  printf("Encrypted message: %s\n", encryptedMessage);
 }

@@ -1,1 +1,3 @@
-void encrypt (char message[]);
+#include "message.h"
+
+void encrypt (struct message*);

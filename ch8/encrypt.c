@@ -1,9 +1,15 @@
 #include "encrypt.h"
+#include <string.h>
+#include <stdio.h>
 
-void encrypt (char message[])
+void encrypt (struct message *msg)
 {
-  while (*message) {
-    *message = *message ^ 31;
-    message++;
+  strcpy(msg->encrypted, msg->original);
+
+  char *p = &(msg->encrypted[0]);
+
+  while (*p) {
+    *p = *p ^ 31;
+    p++;
   }
 }
